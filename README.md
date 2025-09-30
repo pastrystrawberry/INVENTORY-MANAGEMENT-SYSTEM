@@ -1,102 +1,72 @@
 # Inventory Management System (Java + JDBC + Swing)
 
-A desktop-based Inventory Management System built in Java using **JDBC** for MySQL database connectivity and **Swing** for the graphical user interface (GUI).
-
-This project allows users to manage products efficiently with CRUD operations (Create, Read, Update, Delete) and search functionality.
-
----
-
-## Features
-
-- Add, update, and delete products.
-- Search products by name or category.
-- View products in a dynamic table.
-- Store product data persistently in a MySQL database.
-- Simple and user-friendly Swing GUI.
+A desktop inventory management application built with Java Swing and MySQL (via JDBC).  
+It allows you to add, view, update, delete, and search products stored in a database.
 
 ---
 
-## Tech Stack
+## 📋 Features
 
-- **Java**  
-- **JDBC** (Java Database Connectivity)  
-- **Swing** (Graphical User Interface)  
-- **MySQL**  
+- Add new products with name, quantity, price, category  
+- View all products in a table  
+- Update existing products  
+- Delete products  
+- Search by name or category  
 
 ---
 
-## Database Setup
+## 🛠️ Tech Stack
 
-1. Install MySQL.  
-2. Create a database named `inventorydb`:
-   ```sql
-   CREATE DATABASE inventorydb;
-Create the products table:
+- Java  
+- JDBC (Java Database Connectivity)  
+- Swing (Graphical User Interface)  
+- MySQL  
+
+---
+
+## 🔧 Setup & Usage
+
+### 1. Configure MySQL
+
+Log into MySQL:
+```sql
+CREATE DATABASE inventorydb;
+USE inventorydb;
 
 CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    quantity INT NOT NULL,
-    price DOUBLE NOT NULL,
-    category VARCHAR(50)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  quantity INT NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  category VARCHAR(50)
 );
-Setup Instructions
 
-Clone the repository:
+CREATE USER 'inventory_user'@'localhost' IDENTIFIED BY 'YourPasswordHere';
+GRANT ALL PRIVILEGES ON inventorydb.* TO 'inventory_user'@'localhost';
+FLUSH PRIVILEGES;
 
-git clone https://github.com/pastrystrawberry/INVENTORY-MANAGEMENT-SYSTEM.git
-cd INVENTORY-MANAGEMENT-SYSTEM
+Update DBConnection.java
 
+##Set correct credentials:
 
-Update your MySQL credentials in DBConnection.java:
+String url = "jdbc:mysql://localhost:3306/inventorydb?useSSL=false&serverTimezone=UTC";
+String username = "inventory_user";   // or "root"
+String password = "YourPasswordHere";
+Compile the code
 
-String username = "root";
-String password = "your_mysql_password";
-
-
-Compile all Java files:
+Open a terminal in your project directory:
 
 javac -cp .:mysql-connector-j-9.4.0.jar *.java
+4. Run the application
 
-
-Run the application:
+On Linux/macOS:
 
 java -cp .:mysql-connector-j-9.4.0.jar InventoryGUI
-Future Improvements
 
-Input validation for numeric fields.
 
-Export inventory data to CSV.
+On Windows (PowerShell / CMD):
 
-Better GUI styling and layout.
-
-User authentication for multiple users.
-+----------------+
-|     User       |
-| (clicks GUI)   |
-+-------+--------+
-        |
-        v
-+----------------+
-|  Swing GUI     |   InventoryGUI.java
-| (Tables,Btns)  |
-+-------+--------+
-        |
-        v
-+----------------+
-| ProductDAO     |   ProductDAO.java
-| (JDBC Queries) |
-+-------+--------+
-        |
-        v
-+----------------+
-| DBConnection   |   DBConnection.java
-| (MySQL Link)   |
-+-------+--------+
-        |
-        v
-+----------------+
-|  MySQL DB      |
-|  products tbl  |
-+----------------+
+java -cp ".;mysql-connector-j-9.4.0.jar" InventoryGUI
+Project Architecture
+User → Swing GUI → ProductDAO (SQL layer) → DBConnection → MySQL DB (products table)
 
