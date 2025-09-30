@@ -71,3 +71,32 @@ Export inventory data to CSV.
 Better GUI styling and layout.
 
 User authentication for multiple users.
++----------------+
+|     User       |
+| (clicks GUI)   |
++-------+--------+
+        |
+        v
++----------------+
+|  Swing GUI     |   InventoryGUI.java
+| (Tables,Btns)  |
++-------+--------+
+        |
+        v
++----------------+
+| ProductDAO     |   ProductDAO.java
+| (JDBC Queries) |
++-------+--------+
+        |
+        v
++----------------+
+| DBConnection   |   DBConnection.java
+| (MySQL Link)   |
++-------+--------+
+        |
+        v
++----------------+
+|  MySQL DB      |
+|  products tbl  |
++----------------+
+
